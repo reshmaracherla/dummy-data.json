@@ -1,0 +1,79 @@
+import React, { useState } from "react";
+import "./App.css";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+
+const data = [
+  {
+    id: 1,
+    year: 2004,
+    medals: 1,
+  },
+  {
+    id: 2,
+    year: 2008,
+    medals: 3,
+  },
+  {
+    id: 3,
+    year: 2012,
+    medals: 6,
+  },
+  {
+    id: 4,
+    year: 2016,
+    medals: 2,
+  },
+  {
+    id: 5,
+    year: 2020,
+    medals: 7,
+  },
+];
+
+function App() {
+  const [activeTab, setActiveTab] = useState("table");
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
+  return (
+    <div className="App">
+      <div className="tabs">
+        <button onClick={() => handleTabChange("table")}>Table</button>
+        <button onClick={() => handleTabChange("chart")}>Line Chart</button>
+      </div>
+      <div className="content">
+        {activeTab === "table" && (
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Year</th>
+                <th>Medals</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((row) => (
+                <tr key={row.id}>
+                  <td>{row.id}</td>
+                  <td>{row.year}</td>
+                  <td>{row.medals}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        {activeTab === "chart" && (
+          <LineChart
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid
